@@ -1,8 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
-import "./styles/global.scss";
+
+import { StoreWrapper } from "@/stores/Provider";
+
+import "@/scss/app.scss";
 
 const rootElement = document.getElementById("root");
 
@@ -12,6 +16,10 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <StoreWrapper>
+        <App />
+      </StoreWrapper>
+    </BrowserRouter>
   </StrictMode>,
 );

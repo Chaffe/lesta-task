@@ -1,0 +1,40 @@
+$icon-transition-duration: 0.25s;
+$icon-transition-easing: ease;
+
+.icon {
+  display: block;
+  flex-shrink: 0;
+  width: 30px;
+  height: 20px;
+  overflow: visible;
+}
+
+.icon [data-part="inactive"],
+.icon [data-part="active"] {
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity $icon-transition-duration $icon-transition-easing;
+}
+
+.icon [data-part="active"] {
+  opacity: 0;
+}
+
+.icon[data-active="true"] [data-part="inactive"] {
+  opacity: 0;
+}
+
+.icon[data-active="true"] [data-part="active"] {
+  opacity: 1;
+}
+
+.icon [data-part="chevron"] {
+  transform: rotate(0deg);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform $icon-transition-duration $icon-transition-easing;
+}
+
+.icon [data-part="chevron"][data-sort-direction="asc"] {
+  transform: rotate(180deg);
+}

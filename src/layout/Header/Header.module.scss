@@ -1,0 +1,146 @@
+@use "../../scss/vars" as vars;
+
+.header {
+  flex-shrink: 0;
+  padding-bottom: 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  $tab-glow-transition-duration: 0.25s;
+  $tab-glow-transition-easing: ease;
+
+  .title {
+    font-size: 24px;
+    line-height: 120%;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    padding-top: 32px;
+    display: flex;
+
+    .tabButton {
+      position: relative;
+      min-height: 32px;
+      padding: 0 33px;
+      display: flex;
+      align-items: center;
+      border: none;
+      font-size: 14px;
+      line-height: 1;
+      color: var(--white-spanish);
+      text-decoration: none;
+      background-color: var(--tab-bg);
+      cursor: pointer;
+      z-index: 1;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 338px;
+        height: 168px;
+        background-image: url("/src/assets/images/tabGlow.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        pointer-events: none;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity $tab-glow-transition-duration
+          $tab-glow-transition-easing;
+      }
+
+      &.active {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .controls {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .countContainer {
+      display: flex;
+      column-gap: 11px;
+    }
+
+    .countLabel {
+      font-size: 14px;
+      line-height: 18px;
+      color: var(--white-orange);
+    }
+
+    .countValue {
+      font-size: 14px;
+      line-height: 18px;
+      color: var(--white-spanish);
+    }
+
+    .sortingControlsContainer {
+      display: flex;
+      column-gap: 16px;
+    }
+
+    .sortingControls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sortingControlsLabel {
+      font-size: 14px;
+      line-height: 18px;
+      color: var(--white-orange);
+    }
+
+    .sortingControlsButtonContainer {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .sortingControlsButton {
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 20px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-md) {
+  .header {
+    .tabs {
+      .tabButton {
+        display: flex;
+        justify-content: center;
+        width: 50%;
+      }
+    }
+
+    .controls {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 16px;
+
+      .sortingControlsContainer {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        order: -1;
+      }
+    }
+  }
+}

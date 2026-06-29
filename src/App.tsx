@@ -1,16 +1,23 @@
-import { observer } from "mobx-react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import styles from "./App.module.scss";
-import images from "@/assets";
+import { SHOP_TAB_ROUTES } from "@/consts";
+import ShopPage from "@/pages/ShopPage";
 
-const App = observer(() => {
+const App = () => {
   return (
-    <main className={styles.app} style={{ backgroundImage: `url(${images.shopBackground})` }}>
-      <div className={styles.layout}>
-        <h1 className={styles.title}>Техника</h1>
-      </div>
-    </main>
+    <Routes>
+      <Route
+        path="/"
+        element={<Navigate replace to={SHOP_TAB_ROUTES.PREMIUM} />}
+      />
+      <Route path={SHOP_TAB_ROUTES.PREMIUM} element={<ShopPage />} />
+      <Route path={SHOP_TAB_ROUTES.COLLECTION} element={<ShopPage />} />
+      <Route
+        path="*"
+        element={<Navigate replace to={SHOP_TAB_ROUTES.PREMIUM} />}
+      />
+    </Routes>
   );
-});
+};
 
 export default App;

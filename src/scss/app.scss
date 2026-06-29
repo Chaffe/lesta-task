@@ -1,0 +1,12 @@
+@use "reset";
+@use "typography";
+@use "colors";
+@use "vars";
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Roboto Condensed", sans-serif;
+}

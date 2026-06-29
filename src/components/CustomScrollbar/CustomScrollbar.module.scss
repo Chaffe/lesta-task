@@ -1,0 +1,133 @@
+.customScrollbar {
+  position: relative;
+  height: 100%;
+}
+
+.content {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.scrollbar {
+  position: fixed;
+  z-index: 10;
+  width: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.scrollbarHidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scrollButton {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.chevronUp,
+.chevronDown {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+.chevronUp {
+  border-bottom: 5px solid rgba(233, 226, 191, 0.7);
+}
+
+.chevronDown {
+  border-top: 5px solid rgba(233, 226, 191, 0.7);
+}
+
+.track {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  margin: 2px 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.14);
+  }
+}
+
+.thumb {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  min-height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+  background: rgba(28, 30, 34, 0.92);
+  cursor: grab;
+  touch-action: none;
+  transition:
+    height 0.15s ease,
+    top 0.15s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(
+      to bottom,
+      rgba(233, 226, 191, 0.45) 0,
+      rgba(233, 226, 191, 0.45) 1px,
+      transparent 1px,
+      transparent 4px,
+      rgba(233, 226, 191, 0.45) 4px,
+      rgba(233, 226, 191, 0.45) 5px,
+      transparent 5px,
+      transparent 8px,
+      rgba(233, 226, 191, 0.45) 8px,
+      rgba(233, 226, 191, 0.45) 9px
+    );
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}

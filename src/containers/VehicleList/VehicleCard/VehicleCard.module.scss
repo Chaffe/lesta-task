@@ -1,0 +1,196 @@
+@use "../../../scss/vars" as vars;
+
+$card-height: 222px;
+$card-gap: 20px;
+$expanded-card-height: calc(#{$card-height} * 2 + #{$card-gap});
+$card-transition-duration: 0.3s;
+$card-transition-easing: ease;
+
+.vehicleCard {
+  position: relative;
+  background-color: var(--card-bg);
+  display: flex;
+  justify-content: space-between;
+  height: $card-height;
+  flex-shrink: 0;
+  z-index: 11;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    height $card-transition-duration $card-transition-easing,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    box-shadow:
+      0 0 24px rgba(0, 0, 0, 0.55),
+      0 12px 32px rgba(0, 0, 0, 0.45);
+
+    .content .description {
+      margin-top: 8px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      max-height: 42px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 266px;
+    height: $card-height;
+    background-image: url("/src/assets/images/flag.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    transition: height $card-transition-duration $card-transition-easing;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 36px;
+    padding: 0 0 18px 22px;
+    transition: padding $card-transition-duration $card-transition-easing;
+
+    .contentTop {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      font-size: 15px;
+      line-height: 17px;
+      color: var(--white-spanish);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+    }
+
+    .description {
+      font-family: "ZurichCond", sans-serif;
+      font-size: 14px;
+      line-height: 100%;
+      color: var(--light-brown);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        max-height 0.3s ease;
+    }
+  }
+
+  .priceContainer {
+    display: flex;
+    gap: 8px;
+
+    .oldPrice,
+    .price {
+      font-family: "ZurichCond", sans-serif;
+      font-size: 14px;
+      line-height: 100%;
+    }
+
+    .oldPrice {
+      color: var(--light-brown);
+      text-decoration: line-through;
+    }
+
+    .price {
+      color: var(--accent-brown);
+    }
+  }
+
+  .image {
+    position: relative;
+    z-index: 1;
+    width: 266px;
+    height: 200px;
+    padding: 11px 16px 11px 0;
+    object-fit: contain;
+    transition:
+      width $card-transition-duration $card-transition-easing,
+      height $card-transition-duration $card-transition-easing,
+      padding $card-transition-duration $card-transition-easing,
+      transform $card-transition-duration $card-transition-easing;
+  }
+
+  .discountContainer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 222px;
+      height: 132px;
+      background-image: url("/src/assets/images/discountBackground.png");
+    }
+
+    .discount {
+      position: absolute;
+      top: 16px;
+      right: 19px;
+      font-size: 18px;
+      line-height: 20px;
+      color: var(--white-spanish);
+    }
+  }
+
+  &.expanded {
+    grid-row: span 2;
+    height: $expanded-card-height;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 12;
+    overflow: visible;
+
+    &::before {
+      height: $expanded-card-height;
+      width: 100%;
+    }
+
+    .image {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      width: min(100%, 420px);
+      height: 280px;
+      padding: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .contentTop {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}
+
+@media screen and (max-width: vars.$breakpoint-lg) {
+  .vehicleCard {
+    flex-direction: column;
+    height: auto;
+
+    .image {
+      margin: 0 auto;
+      padding: 15px 0 0 0;
+      order: -1;
+    }
+  }
+}
